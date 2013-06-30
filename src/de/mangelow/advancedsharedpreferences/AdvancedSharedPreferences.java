@@ -1,16 +1,16 @@
 /***
-*
-* Licensed under the Apache License, Version 2.0 (the "License"); you may
-* not use this file except in compliance with the License. You may obtain
-* a copy of the License at
-* http://www.apache.org/licenses/LICENSE-2.0
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*
-*/
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
 package de.mangelow.advancedsharedpreferences;
 
 import java.io.File;
@@ -25,14 +25,17 @@ import android.content.SharedPreferences;
 import android.location.Location;
 import android.util.Log;
 
+/**
+ * @author Philipp Mangelow <pmangelow at googlemail com>
+ */
 public class AdvancedSharedPreferences {
 
 	// DEBUG
 
 	private final String TAG = getClass().getSimpleName();
-	private final boolean PRINT_E = true;
+	private final boolean PRINT_E = false;
 
-	private final boolean DEBUG = true;
+	private final boolean DEBUG = false;
 	private boolean debug = DEBUG;
 
 	// SHARED PREFERENCES
@@ -85,13 +88,23 @@ public class AdvancedSharedPreferences {
 	private final String KEY_LOCATION_SPEED = "location_speed";
 
 
-
+	/**
+	 * AdvancedSharedPreferences - Library for Android to extend SharedPreferences 
+	 *  
+	 * @param context  - The context to use. 
+	 */
 	public AdvancedSharedPreferences(Context context) {
 
 		this.context = context;
 
 		setEditors(context);
 	}
+	/**
+	 * AdvancedSharedPreferences - Library for Android to extend SharedPreferences 
+	 *  
+	 * @param context  - The context to use. 
+	 * @param filename  - Desired preferences file. (default: Preferences)
+	 */
 	public AdvancedSharedPreferences(Context context, String filename) {
 
 		this.context = context;
@@ -99,6 +112,13 @@ public class AdvancedSharedPreferences {
 
 		setEditors(context);
 	}
+	/**
+	 * AdvancedSharedPreferences - Library for Android to extend SharedPreferences 
+	 *  
+	 * @param context  - The context to use. 
+	 * @param filename  - Desired preferences file. (default: Preferences)
+	 * @param value_delimiter  - The delimiter, that is used for splitting values. (default: µ) 
+	 */
 	public AdvancedSharedPreferences(Context context, String filename, String value_delimiter) {
 
 		this.context = context;
@@ -107,6 +127,14 @@ public class AdvancedSharedPreferences {
 
 		setEditors(context);
 	}
+	/**
+	 * AdvancedSharedPreferences - Library for Android to extend SharedPreferences 
+	 *  
+	 * @param context  - The context to use. 
+	 * @param filename  - Desired preferences file. (default: Preferences)
+	 * @param value_delimiter  - The delimiter, that is used for splitting values. (default: µ) 
+	 * @param value_maxsize  - The maximal preference value length. (default: 8192)
+	 */
 	public AdvancedSharedPreferences(Context context, String filename, String value_delimiter, int value_maxsize) {
 
 		this.context = context;
@@ -115,7 +143,16 @@ public class AdvancedSharedPreferences {
 		if(value_maxsize>0)this.value_maxsize = value_maxsize;
 
 		setEditors(context);
-	}
+	}	
+	/**
+	 * AdvancedSharedPreferences - Library for Android to extend SharedPreferences 
+	 *  
+	 * @param context  - The context to use. 
+	 * @param filename  - Desired preferences file. (default: Preferences)
+	 * @param value_delimiter  - The delimiter, that is used for splitting values. (default: µ) 
+	 * @param value_maxsize  - The maximal preference value length. (default: 8192)
+	 * @param debug  - Print errors to console (default: false)
+	 */
 	public AdvancedSharedPreferences(Context context, String filename, String value_delimiter, int value_maxsize, boolean debug) {
 
 		this.context = context;
@@ -202,7 +239,15 @@ public class AdvancedSharedPreferences {
 		if(foundandremoved>0)return true;
 		return false;
 	}
-
+	
+	//
+	
+	/**
+	 * Clear all preferences in preference file
+	 * 
+	 * @return Returns true, if all preferences are cleared 
+	 * 
+	 */
 	public boolean clearAllPref() {
 
 		try {
@@ -216,6 +261,12 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Delete preference file
+	 * 
+	 * @return Returns true, if preference file deleted.
+	 * 
+	 */
 	public boolean deletePrefFile() {
 		try {
 			File file= new File(context.getApplicationInfo().dataDir + "/shared_prefs/" + filename + ".xml");
@@ -230,7 +281,13 @@ public class AdvancedSharedPreferences {
 	}
 
 	// BOOLEAN
-
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBooleanPref(String key, boolean value) {
 		try {
 			sp_save.putBoolean(KEY_BOOLEAN + KEY_DELIMITER + key, value);
@@ -243,6 +300,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBooleanArrayPref(String key, boolean [] value) {		
 		int length = value.length;				
 		try {
@@ -260,6 +324,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBooleanArrayListPref(String key, ArrayList<Boolean> value) {		
 		int length = value.size();				
 		try {
@@ -277,7 +348,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public boolean loadBooleanPref(String key, boolean defValue) {
 		try {
 			return sp_load.getBoolean(KEY_BOOLEAN + KEY_DELIMITER + key, defValue);
@@ -287,6 +365,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public boolean [] loadBooleanArrayPref(String key, boolean [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BOOLEAN + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -308,6 +393,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Boolean> loadBooleanArrayListPref(String key, ArrayList<Boolean> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BOOLEAN + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -328,7 +420,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBooleanPref(String key) {
 		boolean value = false;
 
@@ -341,6 +439,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBooleanArrayPref(String key) {
 		boolean value = false;
 
@@ -353,6 +457,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBooleanArrayListPref(String key) {
 		boolean value = false;
 
@@ -367,7 +477,13 @@ public class AdvancedSharedPreferences {
 	}
 
 	// BYTE
-
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBytePref(String key, byte value) {
 		try {
 			savePref(KEY_BYTE + KEY_DELIMITER + key, String.valueOf(value));
@@ -379,6 +495,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveByteArrayPref(String key, byte [] value) {		
 		int length = value.length;				
 		try {
@@ -396,6 +519,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveByteArrayListPref(String key, ArrayList<Byte> value) {		
 		int length = value.size();				
 		try {
@@ -413,7 +543,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public byte loadBytePref(String key, byte defValue) {
 		try {
 			return Byte.parseByte(loadPref(KEY_BYTE + KEY_DELIMITER + key, String.valueOf(defValue)));
@@ -423,6 +560,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public byte [] loadByteArrayPref(String key, byte [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BYTE + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -444,6 +588,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Byte> loadByteArrayListPref(String key, ArrayList<Byte> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BYTE + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -464,7 +615,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBytePref(String key) {
 		boolean value = false;
 
@@ -477,6 +634,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delByteArrayPref(String key) {
 		boolean value = false;
 
@@ -489,6 +652,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delByteArrayListPref(String key) {
 		boolean value = false;
 
@@ -503,7 +672,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// SHORT
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveShortPref(String key, short value) {
 		try {
 			savePref(KEY_SHORT + KEY_DELIMITER + key, String.valueOf(value));
@@ -515,6 +691,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveShortArrayPref(String key, short [] value) {		
 		int length = value.length;				
 		try {
@@ -532,6 +715,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveShortArrayListPref(String key, ArrayList<Short> value) {		
 		int length = value.size();				
 		try {
@@ -549,7 +739,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public short loadShortPref(String key, short defValue) {
 		try {
 			return Short.parseShort(loadPref(KEY_SHORT + KEY_DELIMITER + key, String.valueOf(defValue)));
@@ -559,6 +756,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public short [] loadShortArrayPref(String key, short [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_SHORT + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -580,6 +784,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Short> loadShortArrayListPref(String key, ArrayList<Short> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_SHORT + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -600,7 +811,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delShortPref(String key) {
 		boolean value = false;
 
@@ -613,6 +830,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delShortArrayPref(String key) {
 		boolean value = false;
 
@@ -625,6 +848,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delShortArrayListPref(String key) {
 		boolean value = false;
 
@@ -639,7 +868,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// INTEGER
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveIntegerPref(String key, int value) {		
 		try {
 			sp_save.putInt(KEY_INTEGER + KEY_DELIMITER + key, value);
@@ -652,6 +888,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveIntegerArrayPref(String key, int [] value) {		
 		int length = value.length;				
 		try {
@@ -669,6 +912,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveIntegerArrayListPref(String key, ArrayList<Integer> value) {		
 		int length = value.size();				
 		try {
@@ -686,7 +936,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public int loadIntegerPref(String key, int defValue) {
 		try {
 			return sp_load.getInt(KEY_INTEGER + KEY_DELIMITER + key, defValue);
@@ -696,6 +953,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public int [] loadIntegerArrayPref(String key, int [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_INTEGER + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -717,6 +981,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Integer> loadIntegerArrayListPref(String key, ArrayList<Integer> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_INTEGER + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -737,7 +1008,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delIntegerPref(String key) {
 		boolean value = false;
 
@@ -750,6 +1027,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delIntegerArrayPref(String key) {
 		boolean value = false;
 
@@ -762,6 +1045,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delIntegerArrayListPref(String key) {
 		boolean value = false;
 
@@ -776,7 +1065,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// LONG
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveLongPref(String key, long value) {
 		try {
 			sp_save.putLong(KEY_LONG + KEY_DELIMITER + key, value);
@@ -789,6 +1085,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveLongArrayPref(String key, long [] value) {		
 		int length = value.length;				
 		try {
@@ -806,6 +1109,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveLongArrayListPref(String key, ArrayList<Long> value) {		
 		int length = value.size();				
 		try {
@@ -823,7 +1133,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public long loadLongPref(String key, long defValue) {
 		try {
 			return sp_load.getLong(KEY_LONG + KEY_DELIMITER + key, defValue);
@@ -833,6 +1150,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public long [] loadLongArrayPref(String key, long [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_LONG + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -854,6 +1178,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Long> loadLongArrayListPref(String key, ArrayList<Long> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_LONG + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -874,7 +1205,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delLongPref(String key) {
 		boolean value = false;
 
@@ -887,6 +1224,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delLongArrayPref(String key) {
 		boolean value = false;
 
@@ -899,6 +1242,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delLongArrayListPref(String key) {
 		boolean value = false;
 
@@ -913,7 +1262,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// BIGDECIMAL
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBigIntegerPref(String key, BigInteger value) {
 		try {
 			sp_save.putLong(KEY_BIGINTEGER + KEY_DELIMITER + key, value.longValue());
@@ -926,6 +1282,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBigIntegerArrayPref(String key, BigInteger [] value) {		
 		int length = value.length;				
 		try {
@@ -943,6 +1306,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBigIntegerArrayListPref(String key, ArrayList<BigInteger> value) {		
 		int length = value.size();				
 		try {
@@ -960,7 +1330,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public BigInteger loadBigIntegerPref(String key, BigInteger defValue) {
 		try {
 			return BigInteger.valueOf(Long.parseLong(loadPref(KEY_BIGINTEGER + KEY_DELIMITER + key, String.valueOf(defValue))));
@@ -970,6 +1347,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public BigInteger [] loadBigIntegerArrayPref(String key, BigInteger [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BIGINTEGER + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -991,6 +1375,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<BigInteger> loadBigIntegerArrayListPref(String key, ArrayList<BigInteger> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BIGINTEGER + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1011,7 +1402,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBigIntegerPref(String key) {
 		boolean value = false;
 
@@ -1024,6 +1421,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBigIntegerArrayPref(String key) {
 		boolean value = false;
 
@@ -1036,6 +1439,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBigIntegerArrayListPref(String key) {
 		boolean value = false;
 
@@ -1050,7 +1459,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// FLOAT
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveFloatPref(String key, float value) {		
 		try {
 			sp_save.putFloat(KEY_FLOAT + KEY_DELIMITER + key, value);
@@ -1063,6 +1479,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveFloatArrayPref(String key, float [] value) {		
 		float length = value.length;				
 		try {
@@ -1080,6 +1503,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveFloatArrayListPref(String key, ArrayList<Float> value) {		
 		int length = value.size();				
 		try {
@@ -1097,7 +1527,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public float loadFloatPref(String key, float defValue) {
 		try {
 			return sp_load.getFloat(KEY_FLOAT + KEY_DELIMITER + key, defValue);
@@ -1107,6 +1544,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public float [] loadFloatArrayPref(String key, float [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_FLOAT + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1128,6 +1572,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Float> loadFloatArrayListPref(String key, ArrayList<Float> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_FLOAT + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1148,7 +1599,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delFloatPref(String key) {
 		boolean value = false;
 
@@ -1161,6 +1618,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delFloatArrayPref(String key) {
 		boolean value = false;
 
@@ -1173,6 +1636,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delFloatArrayListPref(String key) {
 		boolean value = false;
 
@@ -1187,7 +1656,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// DOUBLE
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveDoublePref(String key, double value) {
 		try {
 			savePref(KEY_DOUBLE + KEY_DELIMITER + key, String.valueOf(value));
@@ -1199,6 +1675,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveDoubleArrayPref(String key, double [] value) {		
 		double length = value.length;				
 		try {
@@ -1216,6 +1699,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveDoubleArrayListPref(String key, ArrayList<Double> value) {		
 		int length = value.size();				
 		try {
@@ -1233,7 +1723,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public double loadDoublePref(String key, double defValue) {
 		try {
 			return Double.parseDouble(loadPref(KEY_DOUBLE + KEY_DELIMITER + key, String.valueOf(defValue)));
@@ -1243,6 +1740,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public double [] loadDoubleArrayPref(String key, double [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_DOUBLE + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1264,6 +1768,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Double> loadDoubleArrayListPref(String key, ArrayList<Double> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_DOUBLE + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1284,7 +1795,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delDoublePref(String key) {
 		boolean value = false;
 
@@ -1297,6 +1814,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delDoubleArrayPref(String key) {
 		boolean value = false;
 
@@ -1309,6 +1832,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delDoubleArrayListPref(String key) {
 		boolean value = false;
 
@@ -1323,7 +1852,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// BIGDECIMAL
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBigDecimalPref(String key, BigDecimal value) {
 		try {
 			sp_save.putFloat(KEY_BIGDECIMAL + KEY_DELIMITER + key, value.floatValue());
@@ -1336,6 +1872,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBigDecimalArrayPref(String key, BigDecimal [] value) {		
 		int length = value.length;				
 		try {
@@ -1353,6 +1896,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveBigDecimalArrayListPref(String key, ArrayList<BigDecimal> value) {		
 		int length = value.size();				
 		try {
@@ -1371,6 +1921,13 @@ public class AdvancedSharedPreferences {
 		return false;
 	}
 
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public BigDecimal loadBigDecimalPref(String key, BigDecimal defValue) {
 		try {
 			return BigDecimal.valueOf(Double.parseDouble(loadPref(KEY_BIGDECIMAL + KEY_DELIMITER + key, String.valueOf(defValue))));
@@ -1380,6 +1937,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public BigDecimal [] loadBigDecimalArrayPref(String key, BigDecimal [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BIGDECIMAL + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1401,6 +1965,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<BigDecimal> loadBigDecimalArrayListPref(String key, ArrayList<BigDecimal> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_BIGDECIMAL + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1421,7 +1992,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBigDecimalPref(String key) {
 		boolean value = false;
 
@@ -1434,6 +2011,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBigDecimalArrayPref(String key) {
 		boolean value = false;
 
@@ -1446,6 +2029,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delBigDecimalArrayListPref(String key) {
 		boolean value = false;
 
@@ -1460,7 +2049,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// CHAR
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveCharPref(String key, char value) {
 		try {
 			savePref(KEY_CHARACTER + KEY_DELIMITER + key, String.valueOf(value));
@@ -1472,6 +2068,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveCharArrayPref(String key, char [] value) {		
 		int length = value.length;				
 		try {
@@ -1493,6 +2096,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveCharArrayListPref(String key, ArrayList<Character> value) {		
 		int length = value.size();				
 		try {
@@ -1514,7 +2124,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public char loadCharPref(String key, char defValue) {
 		try {
 			return loadPref(KEY_CHARACTER + KEY_DELIMITER + key, String.valueOf(defValue)).charAt(0);
@@ -1524,6 +2141,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public char [] loadCharArrayPref(String key, char [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_CHARACTER + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1545,6 +2169,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Character> loadCharArrayListPref(String key, ArrayList<Character> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_CHARACTER + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1565,7 +2196,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delCharPref(String key) {
 		boolean value = false;
 
@@ -1578,6 +2215,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delCharArrayPref(String key) {
 		boolean value = false;
 
@@ -1590,6 +2233,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delCharArrayListPref(String key) {
 		boolean value = false;
 
@@ -1604,7 +2253,13 @@ public class AdvancedSharedPreferences {
 	}
 
 	// STRING
-
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveStringPref(String key, String value) {		
 		try {
 			savePref(KEY_STRING + KEY_DELIMITER + key, value);
@@ -1616,6 +2271,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveStringArrayPref(String key, String [] value) {		
 		int length = value.length;				
 		try {
@@ -1637,6 +2299,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveStringArrayListPref(String key, ArrayList<String> value) {		
 		int length = value.size();				
 		try {
@@ -1658,7 +2327,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public String loadStringPref(String key, String defValue) {
 		try {
 			return loadPref(KEY_STRING + KEY_DELIMITER + key, defValue);
@@ -1668,6 +2344,13 @@ public class AdvancedSharedPreferences {
 		}
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public String [] loadStringArrayPref(String key, String [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_STRING + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1681,6 +2364,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<String> loadStringArrayListPref(String key, ArrayList<String> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_STRING + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1701,7 +2391,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delStringPref(String key) {
 		boolean value = false;
 
@@ -1714,6 +2410,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delStringArrayPref(String key) {
 		boolean value = false;
 
@@ -1726,6 +2428,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delStringArrayListPref(String key) {
 		boolean value = false;
 
@@ -1740,7 +2448,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// DATE
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveDatePref(String key, Date value) {
 		try {
 			sp_save.putLong(KEY_DATE + KEY_DELIMITER + key, value.getTime());
@@ -1753,6 +2468,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveDateArrayPref(String key, Date [] value) {		
 		int length = value.length;				
 		try {
@@ -1770,6 +2492,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveDateArrayListPref(String key, ArrayList<Date> value) {		
 		int length = value.size();				
 		try {
@@ -1787,7 +2516,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public Date loadDatePref(String key, Date defValue) {
 		try {
 			return new Date((sp_load.getLong(KEY_DATE + KEY_DELIMITER + key, defValue.getTime())));
@@ -1798,6 +2534,13 @@ public class AdvancedSharedPreferences {
 		return defValue;
 
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public Date [] loadDateArrayPref(String key, Date [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_DATE + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1819,6 +2562,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Date> loadDateArrayListPref(String key, ArrayList<Date> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_DATE + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1840,7 +2590,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delDatePref(String key) {
 		boolean value = false;
 
@@ -1853,6 +2609,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delDateArrayPref(String key) {
 		boolean value = false;
 
@@ -1865,6 +2627,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delDateArrayListPref(String key) {
 		boolean value = false;
 
@@ -1879,7 +2647,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// GREGORIANCALENDAR
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveGregorianCalendarPref(String key, GregorianCalendar value) {
 		try {
 			sp_save.putLong(KEY_GREGORIANCALENDAR + KEY_DELIMITER + key, value.getTimeInMillis());
@@ -1892,6 +2667,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveGregorianCalendarArrayPref(String key, GregorianCalendar [] value) {		
 		int length = value.length;				
 		try {
@@ -1909,6 +2691,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveGregorianCalendarArrayListPref(String key, ArrayList<GregorianCalendar> value) {		
 		int length = value.size();				
 		try {
@@ -1926,7 +2715,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public GregorianCalendar loadGregorianCalendarPref(String key, GregorianCalendar defValue) {
 		try {
 			GregorianCalendar value = new GregorianCalendar();
@@ -1939,6 +2735,13 @@ public class AdvancedSharedPreferences {
 		return defValue;
 
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public GregorianCalendar [] loadGregorianCalendarArrayPref(String key, GregorianCalendar [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_GREGORIANCALENDAR + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -1962,6 +2765,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<GregorianCalendar> loadGregorianCalendarArrayListPref(String key, ArrayList<GregorianCalendar> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_GREGORIANCALENDAR + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -1985,7 +2795,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delGregorianCalendarPref(String key) {
 		boolean value = false;
 
@@ -1999,6 +2815,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delGregorianCalendarArrayPref(String key) {
 		boolean value = false;
 
@@ -2012,6 +2834,12 @@ public class AdvancedSharedPreferences {
 
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delGregorianCalendarArrayListPref(String key) {
 		boolean value = false;
 
@@ -2026,7 +2854,14 @@ public class AdvancedSharedPreferences {
 	}
 
 	// LOCATION
-
+	
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveLocationPref(String key, Location value) {
 		try {
 
@@ -2072,6 +2907,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveLocationArrayPref(String key, Location [] value) {		
 		int length = value.length;				
 		try {		
@@ -2186,6 +3028,13 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
+	/**
+	 * Save/modify preference
+	 * 
+	 * @param key 	The name of the preference to modify.
+	 * @param value	The new value for the preference.
+	 * @return 		Returns true if preference is saved.
+	 */
 	public boolean saveLocationArrayListPref(String key, ArrayList<Location> value) {		
 		int length = value.size();				
 		try {		
@@ -2209,7 +3058,7 @@ public class AdvancedSharedPreferences {
 						return false;
 					}
 				} catch (Exception e) {}
-				
+
 				stringvalue += provider;
 				provider = "";
 				if(i<length-1)stringvalue += value_delimiter;
@@ -2300,7 +3149,14 @@ public class AdvancedSharedPreferences {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public Location loadLocationPref(String key, Location defValue) {
 		try {
 
@@ -2342,6 +3198,13 @@ public class AdvancedSharedPreferences {
 		return defValue;
 
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public Location [] loadLocationArrayPref(String key, Location [] defValue) {
 		try {
 			String stringvalue = loadPref(KEY_LOCATION_PROVIDER + KEY_DELIMITER + KEY_ARRAY + KEY_DELIMITER + key, "");
@@ -2408,6 +3271,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
+	/**
+	 * Load preference
+	 * 
+	 * @param key 	The name of the preference to retrieve.
+	 * @param defValue	Value to return if this preference does not exist.
+	 * @return 		Returns the preference value if it exists, or defValue.
+	 */
 	public ArrayList<Location> loadLocationArrayPref(String key, ArrayList<Location> defValue) {
 		try {
 			String stringvalue = loadPref(KEY_LOCATION_PROVIDER + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key, "");
@@ -2474,7 +3344,13 @@ public class AdvancedSharedPreferences {
 		}	
 		return defValue;
 	}
-
+	
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delLocationPref(String key) {
 		boolean value = false;
 
@@ -2494,6 +3370,12 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delLocationArrayPref(String key) {
 		boolean value = false;
 
@@ -2513,13 +3395,18 @@ public class AdvancedSharedPreferences {
 		}
 		return value;
 	}
+	/**
+	 * Delete preference
+	 * 
+	 * @return Returns true, if preference deleted.
+	 * 
+	 */
 	public boolean delLocationArrayListPref(String key) {		
 		boolean value = false;
 
 		try {
 			value = delPref(KEY_LOCATION_PROVIDER + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key);
 			value = delPref(KEY_LOCATION_LATITUDE + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key);
-			value = delPref(KEY_LOCATION_LONGITUDE + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key);
 			value = delPref(KEY_LOCATION_TIMESTAMP + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key);
 			value = delPref(KEY_LOCATION_ACCURACY + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key);
 			value = delPref(KEY_LOCATION_SPEED + KEY_DELIMITER + KEY_ARRAYLIST + KEY_DELIMITER + key);
