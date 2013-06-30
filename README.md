@@ -18,8 +18,12 @@ Usage
 Include the .jar-file in your Android-project.
 
 AdvancedSharedPreferences asp = new AdvancedSharedPreferences(context);
-boolean saved = asp.saveStringArrayPref("test", new String [] { "1", "2"});
-String test [] = asp.loadStringArrayPref("test", defaultValue);
+
+String save [] = new String [] { "1", "2"};
+
+boolean saved = asp.saveStringArrayPref("test", save);
+
+String load [] = asp.loadStringArrayPref("test", defaultValue);
 
 License
 =========================
